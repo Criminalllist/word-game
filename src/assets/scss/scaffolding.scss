@@ -1,0 +1,13 @@
+@use './variables.scss' as vars;
+
+body {
+  display: grid;
+  place-items: center;
+  grid-template-rows: 1fr;
+  min-height: 100vh;
+
+  font-family: vars.$font-family-main;
+  color: vars.$color-text-primary;
+  background-color: vars.$color-bg-primary;
+  text-rendering: optimizeLegibility;
+}
