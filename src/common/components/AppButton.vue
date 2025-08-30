@@ -22,5 +22,19 @@
   font-size: vars.$font-size-large;
   color: vars.$color-text-white;
   font-weight: vars.$font-weight-regular;
+  cursor: pointer;
+  transition: background-color vars.$transition-basic;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: vars.$color-bg-hover;
+    }
+  }
+
+  @media (hover: none) {
+    &:active {
+      background-color: vars.$color-bg-hover;
+    }
+  }
 }
 </style>

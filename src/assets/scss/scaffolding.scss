@@ -8,6 +8,7 @@ body {
 
   font-family: vars.$font-family-main;
   color: vars.$color-text-primary;
+  line-height: vars.$line-height-main;
   background-color: vars.$color-bg-primary;
   text-rendering: optimizeLegibility;
 }

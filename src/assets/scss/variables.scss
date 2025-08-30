@@ -2,10 +2,12 @@ $font-family-main: 'Roboto', sans-serif;
 
 $color-bg-primary: #f0f4f8;
 $color-bg-card: #fff;
+$color-bg-hover: #006FCB;
 
 $color-text-primary: #222;
 $color-text-main: #000;
 $color-text-white: #fff;
+
 
 $color-light-blue: #cce8ff;
 $color-dark-blue: #008bfe;
@@ -16,14 +18,25 @@ $box-shadow-basic: 0 0 16px 0 rgba(0, 0, 0, 0.1);
 $border-radius-small: 12px;
 $border-radius-basic: 16px;
 
-$font-size-small: 0.875rem;
+$font-size-xs: 0.5rem;
+$font-size-s: 0.75rem;
 $font-size-main: 1rem;
+$font-size-m: 1.25rem;
 $font-size-large: 1.5rem;
 
 $font-weight-regular: 400;
 $font-weight-medium: 500;
 $font-weight-bold: 700;
 
-$line-height-main: 1.5;
+$line-height-main: 1;
 
 $container-width: 1200px;
+
+$space-xs: 0.5rem;
+$space-s: 0.75rem;
+$space-main: 1rem;
+$space-l: 1.5rem;
+$space-xl: 2rem;
+$space-xxl: 4rem;
+
+$transition-basic: 0.3s ease;
