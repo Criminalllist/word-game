@@ -1,13 +1,13 @@
 <template>
-  <li class="item-card" @click="flipWord(), changeStatus()">
+  <li class="item-card" @click="flipWord">
     <div class="item-card__inner">
-      <span class="item-card__word">{{ word }}</span>
+      <span class="item-card__word">{{ state === "closed" ? word : translation }}</span>
       <div class="item-card__bottom">
         <div class="item-card__status">
-          <span class="item-card__status-text" v-if="status">{{
-            status ? "Перевернуть" : "Завершено"
-          }}</span>
-          <template v-else>
+          <span v-if="state === 'closed'" class="item-card__status-text">
+            Перевернуть
+          </span>
+          <template v-if="state === 'opened' && status === 'pending'">
             <span class="item-card__status-icon item-card__status-icon--error">
               <AppIcon
                 name="error"
@@ -27,12 +27,16 @@
               />
             </span>
           </template>
+
+          <span v-if="status !== 'pending'" class="item-card__status-text">
+            Завершено
+          </span>
         </div>
       </div>
 
-      <div v-if="!status" class="item-card__result">
+      <div v-if="status !== 'pending'" class="item-card__result">
         <span
-          v-if="word !== 'Привет'"
+          v-if="status === 'failed'"
           class="item-card__result-icon item-card__result-icon--error"
         >
           <AppIcon
@@ -44,7 +48,7 @@
           />
         </span>
         <span
-          v-if="word == 'Привет'"
+          v-if="status === 'success'"
           class="item-card__result-icon item-card__result-icon--success"
         >
           <AppIcon
@@ -68,20 +72,24 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  translation: {
+    type: String,
+    required: true,
+  },
+  state: {
+    type: String,
+    required: true,
+  },
   status: {
-    type: Boolean,
+    type: String,
     required: true,
   },
 });
 
-const emit = defineEmits(["changeStatus", "flipWord"]);
-
-const changeStatus = () => {
-  emit("changeStatus", !props.status);
-};
+const emit = defineEmits(["changeStatus", "flip-word"]);
 
 const flipWord = () => {
-  emit("flipWord");
+  emit("flip-word", props.state === "closed" ? "opened" : "closed");
 };
 </script>
 
