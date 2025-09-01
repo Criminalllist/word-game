@@ -3,12 +3,7 @@
     <AppHeader :points="points" />
     <main class="main">
       <ul class="item-card-list">
-        <ItemCard
-          word="Привет"
-          :status="status"
-          @flipWord="flipWord"
-          @changeStatus="changeStatus"
-        />
+        <ItemCard v-bind="data" @flip-word="flipWord" />
       </ul>
 
       <AppButton />
@@ -27,15 +22,16 @@ import AppHeader from "@/components/header/AppHeader.vue";
 import ItemCard from "@/components/item-card/ItemCard.vue";
 
 const points = ref(100);
-const status = ref(true);
 
-const flipWord = () => {
-  console.log("flipWord");
-};
+const data = ref({
+  word: "Hello",
+  translation: "Привет",
+  state: "closed",
+  status: "pending",
+});
 
-const changeStatus = (evt) => {
-  console.log("changeStatus");
-  status.value = evt;
+const flipWord = (state) => {
+  data.value.state = state;
 };
 </script>
 
