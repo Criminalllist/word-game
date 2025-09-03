@@ -4,7 +4,10 @@
       <span class="item-card__word">{{ state === "closed" ? word : translation }}</span>
       <div class="item-card__bottom">
         <div class="item-card__status">
-          <span v-if="state === 'closed'" class="item-card__status-text">
+          <span
+            v-if="state === 'closed' && status === 'pending'"
+            class="item-card__status-text"
+          >
             Перевернуть
           </span>
           <template v-if="state === 'opened' && status === 'pending'">
@@ -68,6 +71,10 @@
 import AppIcon from "@/common/components/AppIcon.vue";
 
 const props = defineProps({
+  id: {
+    type: Number,
+    required: true,
+  },
   word: {
     type: String,
     required: true,
@@ -89,7 +96,8 @@ const props = defineProps({
 const emit = defineEmits(["changeStatus", "flip-word"]);
 
 const flipWord = () => {
-  emit("flip-word", props.state === "closed" ? "opened" : "closed");
+  if (props.status !== "pending") return;
+  emit("flip-word", props.state === "closed" ? "opened" : "closed", props.id);
 };
 </script>
 

@@ -3,7 +3,12 @@
     <AppHeader :points="points" />
     <main class="main">
       <ul class="item-card-list">
-        <ItemCard v-bind="data" @flip-word="flipWord" />
+        <ItemCard
+          v-for="item in data"
+          :key="item.id"
+          v-bind="item"
+          @flip-word="flipWord"
+        />
       </ul>
 
       <AppButton />
@@ -23,15 +28,26 @@ import ItemCard from "@/components/item-card/ItemCard.vue";
 
 const points = ref(100);
 
-const data = ref({
-  word: "Hello",
-  translation: "Привет",
-  state: "closed",
-  status: "pending",
-});
+const data = ref([
+  {
+    id: 1,
+    word: "Hello",
+    translation: "Привет",
+    state: "closed",
+    status: "pending",
+  },
+  {
+    id: 2,
+    word: "World",
+    translation: "Мир",
+    state: "opened",
+    status: "success",
+  },
+]);
 
-const flipWord = (state) => {
-  data.value.state = state;
+const flipWord = (state, id) => {
+  console.log(state, id);
+  data.value = data.value.map((item) => (item.id === id ? { ...item, state } : item));
 };
 </script>
 
@@ -54,5 +70,6 @@ main {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: $space-l;
+  margin-bottom: 100px;
 }
 </style>
