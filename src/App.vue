@@ -45,8 +45,9 @@ const data = ref([
   },
 ]);
 
-const flipWord = (state) => {
-  data.value.state = state;
+const flipWord = (state, id) => {
+  console.log(state, id);
+  data.value = data.value.map((item) => (item.id === id ? { ...item, state } : item));
 };
 </script>
 
