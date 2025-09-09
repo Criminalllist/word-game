@@ -1,7 +1,7 @@
 <template>
   <li class="item-card" @click="flipWord">
     <div class="item-card__inner">
-      <span class="item-card__word">{{ state === "closed" ? word : translation }}</span>
+      <p class="item-card__word">{{ state === "closed" ? word : translation }}</p>
       <div class="item-card__bottom">
         <div class="item-card__status">
           <span
@@ -71,10 +71,6 @@
 import AppIcon from "@/common/components/AppIcon.vue";
 
 const props = defineProps({
-  id: {
-    type: Number,
-    required: true,
-  },
   word: {
     type: String,
     required: true,
@@ -97,7 +93,7 @@ const emit = defineEmits(["changeStatus", "flip-word"]);
 
 const flipWord = () => {
   if (props.status !== "pending") return;
-  emit("flip-word", props.state === "closed" ? "opened" : "closed", props.id);
+  emit("flip-word", props.state === "closed" ? "opened" : "closed", props.word);
 };
 </script>
 
@@ -110,7 +106,7 @@ const flipWord = () => {
   background-color: $color-bg-card;
   border-radius: $border-radius-basic;
   box-shadow: $box-shadow-basic;
-  counter-reset: item-card;
+
   cursor: pointer;
   user-select: none;
 
@@ -139,6 +135,7 @@ const flipWord = () => {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     flex-grow: 1;
     font-size: $font-size-m;
     color: $color-text-main;
