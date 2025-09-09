@@ -11,6 +11,12 @@
         />
       </ul>
 
+      <p v-if="isLoading" class="loading-message">Загрузка...</p>
+
+      <p v-if="isError" class="error-message">
+        Не удалось загрузить данные, попробуйте еще раз
+      </p>
+
       <AppButton @click="getData">{{
         isGameStarted ? "Начать заново" : "Начать игру"
       }}</AppButton>
@@ -31,9 +37,12 @@ const points = ref(100);
 
 const data = ref();
 const isGameStarted = ref(false);
+const isError = ref(false);
+const isLoading = ref(false);
 
 const getData = async () => {
   try {
+    isLoading.value = true;
     const response = await fetch("http://localhost:8080/api/random-words");
     if (!response.ok) {
       throw new Error("Failed to fetch data");
@@ -44,8 +53,11 @@ const getData = async () => {
       state: "closed",
       status: "pending",
     }));
+    isError.value = false;
     isGameStarted.value = true;
+    isLoading.value = false;
   } catch (error) {
+    isError.value = true;
     console.error(error);
   }
 };
@@ -76,5 +88,21 @@ main {
   gap: $space-l;
   margin-bottom: 100px;
   counter-reset: item-card;
+}
+
+.loading-message {
+  color: $color-text-primary;
+  font-size: $font-size-m;
+  font-weight: $font-weight-bold;
+  text-align: center;
+  margin-bottom: $space-xl;
+}
+
+.error-message {
+  color: rgb(133, 17, 17);
+  font-size: $font-size-m;
+  font-weight: $font-weight-bold;
+  text-align: center;
+  margin-bottom: $space-xl;
 }
 </style>
